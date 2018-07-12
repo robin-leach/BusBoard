@@ -16,21 +16,11 @@ namespace BusBoard.ConsoleApp
         public double TimeToStation { get; set; }
 
         public BusData() {; }
-        /*
-        public BusData (string stationName, string lineId, string direction, string destinationName, DateTime timestamp, double timeToStation)
-        {
-            this.StationName = stationName;
-            this.lineId = lineId;
-            this.direction = direction;
-            this.destinationName = destinationName;
-            this.timestamp = timestamp;
-            this.timeToStation = timeToStation;
-
-        }*/
 
         public void print()
         {
-            Console.WriteLine(StationName + LineId + Direction + DestinationName + Timestamp + TimeToStation);
+            Console.WriteLine("{0}: Bus {1} ending at {3} arriving in {4:0} mins", StationName, LineId, Direction, DestinationName, TimeToStation/60);
         }
+
     }
 }

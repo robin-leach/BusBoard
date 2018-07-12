@@ -14,26 +14,48 @@ namespace BusBoard.ConsoleApp
     static void Main(string[] args)
     {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-            var client = new RestClient();
-            client.BaseUrl = new Uri("https://api.tfl.gov.uk");
-            client.Authenticator = new SimpleAuthenticator("app_id", "48fc64da", "app_key", "13b3e4935f4929c443b2391efe204741");
-
-            var request = new RestRequest();
-            request.Resource = "StopPoint/490008660N/Arrivals";
-            IRestResponse response = client.Execute(request);
-            RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
-            List<BusData> x = deserial.Deserialize<List<BusData>>(response);
-
-            foreach(var y in x)
+            string userInput;
+            do
             {
-                y.print();
+                Console.WriteLine("Please enter a stop code; to end, type 'End'");
+                userInput = Console.ReadLine();
+                List < BusData > BusList = GetData(userInput);
+                SortPrint(BusList);
             }
+            while (userInput != "End");
+            
             Console.ReadLine();
         
 
 
 
-        }
     }
+
+        static List<BusData> GetData(string stopCode)
+        {
+            var client = new RestClient();
+            client.BaseUrl = new Uri("https://api.tfl.gov.uk");
+            client.Authenticator = new SimpleAuthenticator("app_id", "48fc64da", "app_key", "13b3e4935f4929c443b2391efe204741");
+
+            var request = new RestRequest();
+            request.Resource = "StopPoint/"+ stopCode +"/Arrivals";
+            IRestResponse response = client.Execute(request);
+            RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
+            List<BusData> BusList = deserial.Deserialize<List<BusData>>(response);
+            return BusList;
+        }
+
+    static void SortPrint(List<BusData> BusList)
+        {
+            BusList = BusList.OrderBy(o => o.TimeToStation).ToList();
+            int count = 0;
+            foreach(var bus in BusList)
+            {
+                bus.print();
+                count++;
+                if (count == 5)
+                    break;
+            }
+        }
+  }
 }

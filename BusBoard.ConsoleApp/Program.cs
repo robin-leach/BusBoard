@@ -22,9 +22,14 @@ namespace BusBoard.ConsoleApp
             var request = new RestRequest();
             request.Resource = "StopPoint/490008660N/Arrivals";
             IRestResponse response = client.Execute(request);
+            RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
+            List<BusData> x = deserial.Deserialize<List<BusData>>(response);
 
-            string data = response.Content;
-
+            foreach(var y in x)
+            {
+                y.print();
+            }
+            Console.ReadLine();
         
 
 

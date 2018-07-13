@@ -17,22 +17,23 @@ namespace BusBoard.ConsoleApp
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             string userInput;
-            /*
-            do
-            {
-                Console.WriteLine("Please enter a stop code; to end, type 'End'");
-                userInput = Console.ReadLine();
-                List < BusData > BusList = GetData(userInput);
-                SortPrint(BusList);
-            }
-            while (userInput != "End"); */
 
             do
             {
                 Console.WriteLine("Please enter a postcode; to end, type 'End'");
                 userInput = Console.ReadLine();
                 string[] Location = GetLocation(userInput);
-                Console.WriteLine("Latitude: " + Location[0] + ", longitude: " + Location[1]);
+                string latitude = Location[0];
+                string longitude = Location[1];
+                List<BusStop> nearest_stops = GetNearestStop(latitude, longitude);
+                foreach(var stop in nearest_stops)
+                {
+                    List<BusData> BusList = GetData(stop.stopId);
+                    Console.WriteLine(BusList[0].StationName + " is " + Math.Round(stop.distance,2) + "m away");
+                    SortPrint(BusList);
+                }
+
+
             }
             while (userInput != "End");
 
@@ -61,13 +62,36 @@ namespace BusBoard.ConsoleApp
             var request = new RestRequest();
             request.Resource = "postcodes/" + postCode;
             IRestResponse response = client.Execute(request);
-            RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
             var result = JObject.Parse(response.Content);
             string longitude = result["result"]["longitude"].ToString();
             string latitude = result["result"]["latitude"].ToString();
             string[] final_result = { latitude, longitude };
             return final_result;
         }
+
+        static List<BusStop> GetNearestStop(string latitude, string longitude)
+        {
+            var client = new RestClient();
+            client.BaseUrl = new Uri("https://api.tfl.gov.uk");
+            client.Authenticator = new SimpleAuthenticator("app_id", "48fc64da", "app_key", "13b3e4935f4929c443b2391efe204741");
+            var request = new RestRequest();
+            request.Resource = "StopPoint?stopTypes=NaptanPublicBusCoachTram&radius=200&lat=" + latitude + "&lon=" + longitude;
+            IRestResponse response = client.Execute(request);
+            var result = JObject.Parse(response.Content);
+            var address = result["stopPoints"];
+            string stopId_1 = address[0]["naptanId"].ToString();
+            string stopDistance_1 = address[0]["distance"].ToString();
+
+            string stopId_2 = address[1]["naptanId"].ToString();
+            string stopDistance_2 = address[1]["distance"].ToString();
+
+            List<BusStop> nearest_stops = new List<BusStop>();
+            nearest_stops.Add (new BusStop(stopId_1, Convert.ToDouble(stopDistance_1)));
+            nearest_stops.Add (new BusStop(stopId_2, Convert.ToDouble(stopDistance_2)));
+
+            return nearest_stops;
+        }
+
 
         static void SortPrint(List<BusData> BusList)
         {

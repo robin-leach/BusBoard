@@ -12,8 +12,5 @@ namespace BusBoard.ConsoleApp
         public string latitude { get; set; }
 
         public PostCodeLocation() {; }
-
-
-
     }
 }

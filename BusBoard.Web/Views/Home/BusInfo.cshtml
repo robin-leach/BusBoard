@@ -5,6 +5,12 @@
 
 <h2>BusInfo</h2>
 
-<div class="row">
-    <p>You entered postcode @Model.PostCode</p>
+<div class="column" align ="left">
+    <p>You entered postcode @Model.PostCode. <br> </p>
+	@for(int i = 0; i<2;i++){
+		<p><br> @Model.output_info[i] </p>
+		foreach(var line in Model.Data[i]){
+			<p> @line.DataToString() </p>
+		}
+	}
 </div>

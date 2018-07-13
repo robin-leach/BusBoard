@@ -61,17 +61,10 @@ namespace BusBoard.Api
         }
 
 
-        public static void SortPrint(List<BusData> BusList)
+        public static List<BusData> SortByTime(List<BusData> BusList)
         {
             BusList = BusList.OrderBy(o => o.TimeToStation).ToList();
-            int count = 0;
-            foreach (var bus in BusList)
-            {
-                bus.print();
-                count++;
-                if (count == 5)
-                    break;
-            }
+            return BusList;
         }
     }
 }

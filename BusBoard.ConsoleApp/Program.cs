@@ -25,7 +25,6 @@ namespace BusBoard.ConsoleApp
                 {
                     List<BusData> BusList = API.GetData(stop.stopId);
                     Console.WriteLine(BusList[0].StationName + " is " + Math.Round(stop.distance,2) + "m away");
-                    API.SortPrint(BusList);
                 }
 
 

@@ -19,5 +19,11 @@ namespace BusBoard.Api
             Console.WriteLine("{0}: Bus {1} ending at {3} arriving in {4:0} mins", StationName, LineId, Direction, DestinationName, TimeToStation/60);
         }
 
+        public string DataToString()
+        {
+            string output = $"Bus {LineId} ending at {DestinationName} arriving in {TimeToStation / 60:0} mins";
+            return output;
+        }
+
     }
 }

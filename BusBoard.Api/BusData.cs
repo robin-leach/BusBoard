@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BusBoard.ConsoleApp
+
+namespace BusBoard.Api
 {
-    class BusData
+    public class BusData
     {
         public string StationName { get; set; }
         public string LineId { get; set; }

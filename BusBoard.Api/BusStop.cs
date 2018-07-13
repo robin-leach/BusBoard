@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace BusBoard.ConsoleApp
+namespace BusBoard.Api
 {
-    class BusStop
+    public class BusStop
     {
         public string stopId;
         public double distance;

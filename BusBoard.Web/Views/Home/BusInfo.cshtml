@@ -1,16 +1,22 @@
 ﻿@model BusBoard.Web.ViewModels.BusInfo
 @{
-  ViewBag.Title = "Bus Information";
+  ViewBag.Title = "Bus Info";
 }
 
 <h2>BusInfo</h2>
 
 <div class="column" align ="left">
-    <p>You entered postcode @Model.PostCode. <br> </p>
-	@for(int i = 0; i<2;i++){
+	@if(Model.PostCode != "error")
+	{
+    <p>You entered postcode @Model.PostCode.<br> </p>
+	for(int i = 0; i<2;i++){
 		<p><br> @Model.output_info[i] </p>
 		foreach(var line in Model.Data[i]){
 			<p> @line.DataToString() </p>
 		}
+	}
+	}
+	else{
+	<p>Error! You have been a really bad boy and not inputted a valid postcode :(. </p>
 	}
 </div>

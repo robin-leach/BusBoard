@@ -10,21 +10,11 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="btn default" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("BusBoard", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
+			<div class="topnav">
+				  <a class="active" href="http://robinjoel-001-site1.gtempurl.com/Home/Index">Home</a>
+				  <a href="http://robinjoel-001-site1.gtempurl.com/Home/Contact">Contact</a>
+				  <a href="http://robinjoel-001-site1.gtempurl.com/Home/About">About</a>
+			</div> 
         </div>
     </div>
     <div class="container body-content">

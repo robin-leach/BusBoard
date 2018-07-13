@@ -11,8 +11,8 @@ namespace BusBoard.Web.ViewModels
             PostCode = postCode;
 
             string[] Location = API.GetLocation(PostCode);
-            string latitude = Location[0];
-            string longitude = Location[1];
+            latitude = Location[0];
+            longitude = Location[1];
             List<BusStop> nearest_stops = API.GetNearestStop(latitude, longitude);
             output_info = new List<string>();
             Data = new List<List<BusData>>();
@@ -33,6 +33,9 @@ namespace BusBoard.Web.ViewModels
 
 
         }
+
+        public string longitude;
+        public string latitude;
 
         public string PostCode { get; set; }
         public List<string> output_info;

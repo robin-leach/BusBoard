@@ -1,4 +1,6 @@
-﻿@model BusBoard.Web.ViewModels.BusInfo
+﻿<meta http-equiv="refresh" content="30" >
+
+@model BusBoard.Web.ViewModels.BusInfo
 @{
   ViewBag.Title = "Bus Info";
 }
@@ -17,6 +19,7 @@
 	}
 	}
 	else{
+	<meta http-equiv="refresh" content="0; url=../Shared/Error" />
 	<p>Error! You have been a really bad boy and not inputted a valid postcode :(. </p>
 	}
 </div>

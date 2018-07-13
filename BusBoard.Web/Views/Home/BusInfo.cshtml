@@ -1,18 +1,18 @@
-﻿<meta http-equiv="refresh" content="30" >
+﻿<!-- <meta http-equiv="refresh" content="30" > -->
 
 @model BusBoard.Web.ViewModels.BusInfo
 @{
   ViewBag.Title = "Bus Info";
 }
 
-<h2>BusInfo</h2>
+<h2 align = "center"><i>Information for local buses</i></h2>
 
 <div class="column" align ="left">
 	@if(Model.PostCode != "error")
 	{
-    <p>You entered postcode @Model.PostCode.<br> </p>
+    <p> Buses near postcode: @Model.PostCode.<br> </p>
 	for(int i = 0; i<2;i++){
-		<p><br> @Model.output_info[i] </p>
+		<p><br><b> @Model.output_info[i] </b> </p>
 		foreach(var line in Model.Data[i]){
 			<p> @line.DataToString() </p>
 		}
